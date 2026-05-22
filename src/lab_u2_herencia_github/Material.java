@@ -9,7 +9,7 @@ package lab_u2_herencia_github;
  * @author angul
  */
 public abstract class Material {
-    
+
     private String titulo;
     private String codigo;
     private boolean disponible;
@@ -47,19 +47,34 @@ public abstract class Material {
         this.disponible = disponible;
     }
 
-    public void prestar() {
+    public void prestar() throws MaterialNoDisponibleException {
+
         if (disponible) {
+
             disponible = false;
             System.out.println("Material prestado.");
+
         } else {
-            System.out.println("El material no está disponible.");
+
+            throw new MaterialNoDisponibleException(
+                    "El material no está disponible para préstamo.");
         }
     }
 
-    public void devolver() {
-        disponible = true;
-        System.out.println("Material devuelto.");
+    public void devolver() throws MaterialNoDisponibleException {
+
+        if (!disponible) {
+
+            disponible = true;
+            System.out.println("Material devuelto.");
+
+        } else {
+
+            throw new MaterialNoDisponibleException(
+                    "El material ya estaba disponible.");
+        }
     }
 
     public abstract void mostrarInfo();
+
 }
